@@ -1,0 +1,15 @@
+Prompt 1:
+/explain Identify security vulnerabilities, performance bottlenecks, and bad practices in this script. List them in order of severity.
+
+Prompt 2:
+Refactor process_data() into a class `UserDataImporter`. 
+- Use environment variables or class initialization for database configuration (do not hardcode credentials).
+- Use parameterized SQL queries to prevent SQL injection.
+- Implement batch database commits instead of committing on every row.
+- Context-manage file opening (`with open(...)`).
+
+Prompt 3:
+Add Python type hints (`typing` module) to all methods. Create a dataclass or Pydantic model `User` to represent and validate user records before database insertion.
+
+Prompt 4:
+/tests Generate a comprehensive pytest test suite using sqlite3 in-memory database (:memory:) and mock CSV file fixtures to test valid imports and edge cases.

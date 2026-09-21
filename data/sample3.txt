@@ -1,0 +1,8 @@
+AEIOU
+aeiou
+Line three has several vowels.
+
+(Empty line above)
+Rhythm and sky (No traditional vowels here).
+Queueing is a word with five vowels in a row!
+End of File.

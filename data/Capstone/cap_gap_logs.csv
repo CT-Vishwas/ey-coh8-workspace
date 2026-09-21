@@ -1,0 +1,6 @@
+Gap_ID,App_ID,Control_Missing,Severity,Remediation_Priority
+GAP-101,APP-002,MFA Not Enabled,High,Immediate
+GAP-102,APP-002,Encryption at Rest,Medium,Q3
+GAP-103,APP-004,Outdated OS Patch,Critical,Immediate
+GAP-104,APP-004,Logging Incomplete,Low,Q4
+GAP-105,APP-005,Weekly Backups,High,Immediate

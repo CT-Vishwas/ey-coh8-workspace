@@ -1,0 +1,25 @@
+# File .github/copilot-instructions.md
+
+# Engineering Rules & Guidelines
+- Architecture: Modular Flask Application using Blueprints, Application Factory Pattern, and Flask-SQLAlchemy.
+- Validation: Marshmallow schemas for input validation and serialization.
+- Code Quality: Typed Python 3.11+, docstrings, explicit HTTP response codes, and try/except handling.
+- Environment: Load configurations using `python-dotenv`.
+
+Prompt:
+
+[Role] Senior Backend Engineer
+[Task] Write a Flask-SQLAlchemy model and Marshmallow schema for a Product entity.
+[Attributes] id (Integer PK), name (String, max 100, required), price (Float, > 0), stock (Integer, default 0), created_at (DateTime UTC).
+[Output] Code to be saved in app/models/product.py and app/schemas/product.py. Do not write API endpoints yet.
+
+Prompt 1 (Blueprint Scaffold):
+"Generate a Flask Blueprint for products registered at /api/v1/products in app/routes/products.py."
+Prompt 2 (Create & Read Operations):
+"Using the ProductSchema from app/schemas/product.py and Product model, implement POST / and GET / handlers with validation, proper status codes (201, 200, 400), and error catching."
+
+Automated Verification Loop (Verification Gate)
+
+Prompt Copilot using Few-Shot / Test Driven Generation:
+"Write Pytest unit tests for POST /api/v1/products in tests/test_products.py. Include tests for valid payload (201 created), missing fields (400 validation error), and negative price (400 validation error)."
+
