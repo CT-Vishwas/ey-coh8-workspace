@@ -2,6 +2,7 @@
 m = 100
 print(f"Globally Value of m: {m}")
 def add(a,b):
+    global m
     m = 25
     print(f"locally Values of a,b in add: {a},{b}")
     print(f"locally Value of m in add: {m}")
@@ -18,4 +19,3 @@ print(f"Globally Values of a,b: {a},{b}")
 print(add(10,20)) # Function Call
 print(sub(50,20)) # Function Call
 print(f"Globally Value of m: {m}")
-# m = 700
