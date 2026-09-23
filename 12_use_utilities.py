@@ -6,12 +6,16 @@
 
 # print(is_valid_email_basic("john.doe@email.com"))
 
-from utilities.email_utils import is_valid_email_basic  as isvalidemail
+# from utilities.email_utils import is_valid_email_basic  as isvalidemail
+from utilities import is_valid_ip, is_valid_email_basic, extract_username
 
-print(isvalidemail("john.doe@email.com"))
+print(is_valid_email_basic("john.doe@email.com"))
 # TODO: Create a list of email addresses and print whether they are valid or not
 # Include both valid and invalid email addresses examples 
 # Also printing of Usernames
+
+# Solution
+emails = ["vishwas@cloudthat.com", "johncom", ""]
 
 from utilities.email_utils import extract_username
 from utilities.ip_utils import is_valid_ip
