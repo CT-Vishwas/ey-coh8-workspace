@@ -17,8 +17,8 @@ class User(Person):
     def get_city(self):
         return self.city
 
-    # def __str__(self):
-    #     return f"User(Name={self.name},City={self.city},Email={self.email})"
+    def __str__(self):
+        return f"User(Name={self.name},City={self.city},Email={self.email})"
 
 if __name__ == '__main__':
     p1 = Person("Vishwas", "Pune")
