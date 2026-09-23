@@ -34,7 +34,7 @@ for file_path in target_dir.iterdir():
         target_folder = None
         for category, extensions in folders_map.items():
             if file_ext in extensions:
-                target_folder = workspace / category
+                target_folder = target_dir / category
                 break
         
         # If a matching category folder was found, move the file
