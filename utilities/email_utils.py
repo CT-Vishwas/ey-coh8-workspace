@@ -11,9 +11,9 @@ def is_valid_email():
 def extract_username():
     pass
 
-
-email = input("Enter your email ID: ")
-if is_valid_email_basic(email):
-    print(f"{email} is VALID")
-else:
-    print(f"{email} is INVALID")
+if __name__ == '__main__':
+    email = input("Enter your email ID: ")
+    if is_valid_email_basic(email):
+        print(f"{email} is VALID")
+    else:
+        print(f"{email} is INVALID")
