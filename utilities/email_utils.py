@@ -8,8 +8,11 @@ def is_valid_email_basic(email):
 def is_valid_email():
     pass
 
-def extract_username():
-    pass
+def extract_username(email):
+    if is_valid_email_basic(email):
+        return email[:email.find('@')]
+
+    return "INVALID"
 
 if __name__ == '__main__':
     email = input("Enter your email ID: ")
