@@ -1,14 +1,4 @@
-import tracemalloc
-
-def measure_memory(func):
-    def wrapper(*args, **kwargs):
-        tracemalloc.start()
-        result = func(*args, **kwargs)
-        current, peak = tracemalloc.get_traced_memory()
-        tracemalloc.stop()
-        return result, current, peak
-    return wrapper
-
+from utilities.func_utils import measure_memory
 m = 100
 # simple function to run a loop and return the total
 
