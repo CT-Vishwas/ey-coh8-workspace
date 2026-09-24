@@ -1,5 +1,5 @@
-name,city
-vishwas,bangalore
-john,delhi
-rita,pune
-macy,mumbai
+name,city,salary,email
+vishwas,bangalore,"23000","vishwas@cloudthat.com"
+john,delhi,2000,john.doe@gmail.com
+rita,pune,6000,ritacom
+macy,mumbai,8000,macy-j@gmail.com
