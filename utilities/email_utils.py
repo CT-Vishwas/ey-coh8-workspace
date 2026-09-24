@@ -1,3 +1,4 @@
+import re
 
 def is_valid_email_basic(email):
     if email.find('@') == -1 or email.count('@') != 1:
@@ -5,8 +6,10 @@ def is_valid_email_basic(email):
     else:
         return True
 
-def is_valid_email():
-    pass
+def is_valid_email(email):
+    '''Regular expression based email validation'''
+    pattern = r'^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{3,}$'
+    return re.match(pattern, email) is not None
 
 def extract_username(email):
     if is_valid_email_basic(email):
