@@ -1,0 +1,28 @@
+Step-by-step prompts for using Pydantic and pandas
+
+Step 1: Set up the project
+Prompt: "Create a Python project that uses pandas for tabular data processing and Pydantic for validating structured records. Include installation instructions for pandas, pydantic, and pytest, and organize the code into separate modules."
+
+Step 2: Define the data model
+Prompt: "Create a Pydantic model named Record with fields id (positive integer), name (non-empty string), email (valid email), age (integer between 0 and 120), and score (float between 0 and 100). Add clear validation errors and type hints."
+
+Step 3: Load data with pandas
+Prompt: "Write a function that reads records from a CSV file into a pandas DataFrame. Handle a missing file, empty files, and missing required columns with clear exceptions. Keep the DataFrame loading logic separate from validation."
+
+Step 4: Convert rows into validated models
+Prompt: "Write a function that converts each pandas DataFrame row into the Pydantic Record model. Return the valid records and a list of validation errors containing the row number and the specific failed fields. Do not stop processing when one row is invalid."
+
+Step 5: Clean and transform the DataFrame
+Prompt: "Create pandas transformation functions that trim text columns, normalize email addresses to lowercase, convert numeric columns to numeric types, remove duplicate ids, and handle missing values explicitly. Do not mutate the input DataFrame."
+
+Step 6: Export validated data
+Prompt: "Write a function that converts validated Pydantic Record objects into a pandas DataFrame and exports it to CSV. Preserve the model field order and use UTF-8 encoding."
+
+Step 7: Add a complete pipeline
+Prompt: "Build an end-to-end pipeline that loads a CSV with pandas, cleans the data, validates rows with Pydantic, reports invalid rows, and writes valid records to an output CSV. Use type hints, small testable functions, and clear error handling."
+
+Step 8: Add tests
+Prompt: "Create pytest tests for valid and invalid Pydantic records, malformed emails, out-of-range values, missing CSV columns, duplicate ids, invalid row reporting, and successful CSV export. Use temporary files and DataFrames so tests do not depend on external data."
+
+Step 9: Improve maintainability
+Prompt: "Review the Pydantic and pandas implementation for readability, type safety, performance, and compatibility with the installed Pydantic version. Add concise docstrings, avoid row-wise operations where vectorized pandas operations are appropriate, and explain any design decisions."
