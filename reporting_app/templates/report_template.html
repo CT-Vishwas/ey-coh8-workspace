@@ -1,0 +1,50 @@
+<!--
+    report_template.html — Jinja2 template for the HTML sales/customer report.
+
+    1. RESPONSIBILITY
+        Define the STRUCTURAL markup and CSS for the report (header, KPI
+        cards, data-quality panel, trend/category/payment/customer sections,
+        detailed tables, footer). It contains Jinja2 placeholders
+        ({{ ... }}, {% for %}) that report_builder.py fills in with the
+        context dict it builds — this file has no knowledge of pandas,
+        SQLite, or matplotlib; it only knows about the variable names it
+        expects to receive.
+
+    2. DEPENDENCIES
+        - Rendered exclusively by src/report_builder.py via Jinja2's
+          Environment/Template API.
+        - Inline CSS only (no external stylesheet fetches), so the
+          resulting HTML file is fully self-contained and portable.
+
+    3. INPUT / OUTPUT
+        Input (Jinja2 context variables, supplied by report_builder.py):
+            - report_title, generated_at, run_id, data_date_range
+            - kpis (dict of headline metrics)
+            - data_quality (rows_loaded, rows_rejected, unmatched_pct, etc.)
+            - charts (dict of chart_name -> base64 data-URI strings)
+            - tables (dict of chart_name -> pre-rendered HTML table strings)
+            - footer_meta (pipeline version, config summary, log file path)
+        Output:
+            - A complete standalone HTML document (this file, after Jinja2
+              substitution) written by report_builder.py to
+              output/reports/report_<timestamp>.html.
+
+    4. STRUCTURE (sections, in order)
+        1. Header             — title, run id, generation timestamp, date range
+        2. Executive Summary  — KPI cards
+        3. Data Quality Panel — rows loaded/rejected, referential-integrity status
+        4. Sales Trends       — revenue/transactions over time chart
+        5. Category Analysis  — revenue by category + top-N products charts
+        6. Payment Methods    — payment method mix chart
+        7. Customer Insights  — revenue by location/age/gender charts
+        8. Detailed Tables    — category summary, top products, top customers
+        9. Footer             — pipeline version, config summary, log reference
+
+    5. WHAT IT SHOULD NOT CONTAIN
+        - No embedded Python logic beyond Jinja2 expressions/loops/conditionals.
+        - No raw numbers computed here (e.g. no in-template arithmetic on
+          revenue) — all values must arrive pre-computed via the context.
+        - No references to file paths on the local filesystem for charts —
+          images must be embedded as base64 so the report remains portable.
+-->
+<!-- TODO: full HTML/CSS/Jinja2 markup to be implemented in a later step. -->

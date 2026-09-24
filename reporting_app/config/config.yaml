@@ -1,0 +1,36 @@
+# Central configuration for the reporting pipeline.
+# All "paths" values are relative to the project root; src/config.py
+# resolves them to absolute paths at load time.
+
+paths:
+  sales_csv: "data/sales_data-2.csv"
+  customers_csv: "data/customers_data.csv"
+  database: "db/reporting.db"
+  charts_dir: "output/charts"
+  reports_dir: "output/reports"
+  rejected_dir: "output/rejected"
+  logs_dir: "logs"
+  template_dir: "templates"
+
+ingestion:
+  chunksize: 500          # rows per chunk read from CSV
+  encoding: "utf-8"
+
+database:
+  journal_mode: "WAL"
+  synchronous: "NORMAL"
+  temp_store: "MEMORY"
+  cache_size_kb: 20000
+
+validation:
+  amount_tolerance_pct: 0.01   # allowed drift between Total_Amount and Quantity*Unit_Price
+
+report:
+  title: "Sales & Customer Analytics Report"
+  top_n_products: 10
+  currency_symbol: "$"
+
+logging:
+  level: "INFO"
+  max_bytes: 2097152
+  backup_count: 5

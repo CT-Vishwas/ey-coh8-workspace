@@ -1,0 +1,458 @@
+# Building a Reporting App
+- Define the Requirements
+
+Prompts
+```text
+You are a senior data engineer.
+
+I want to build a small data reporting application pipeline in python using pandas 
+,matplotlib, sqlite with reporting in HTML
+
+Business Requirement:
+We have sales dataset in csv format
+#file data\sales_data-2.csv
+#file data\customer_data.csv
+
+The pipeline should read the CSV files, store the data in an SQLite database, perform analysis using pandas, generate visualizations using matplotlib, and produce an HTML report.
+
+Constraints:
+- The pipeline should handle large CSV files efficiently.
+- The HTML report should be well-formatted and easy to read.
+- The visualizations should be clear and informative.
+- The SQLite database should be properly indexed for performance.
+
+Do Not Write the Code yet.
+First Provide
+1. Architecture
+2. Project Structure
+3. Data Flow
+4. Database Tables
+5. Analysis and Reporting
+6. HTML Report Structure
+7. Error Handling and Logging
+8. Performance Optimization
+```
+
+- Implement the project structure
+
+Prompt:
+```text
+Based on the architecture above, create a python project structure
+
+For every file explain
+
+1. Its Responsibility
+2. Its Dependencies
+3. Its Input and Output
+4. What functions should be there
+5. and what it should not contain
+
+Follow seperation of concerns principle.
+
+Do not implement the functions yet.
+```
+
+- Build ingestion
+Prompt:
+
+```text
+Implement src/ingestion.py.
+
+Create:
+
+def load_sales_csv(file_path: str) -> pandas.DataFrame
+
+Requirements:
+
+- Read CSV using pandas
+- Verify the file exists
+- Raise a meaningful error if it does not
+- Return a DataFrame
+- Do not perform cleaning or transformation here
+- Add type hints
+- Add a docstring
+- Keep the function small
+
+Also provide a few unit tests.
+
+Do not modify other files.
+```
+
+- Data Validation
+
+Prompt:
+```text
+Implement src/validation.py.
+
+Create a function:
+
+validate_sales_data(df: pandas.DataFrame)
+
+Validate:
+
+- Required columns exist
+- order_id is not null
+- order_id is unique
+- order_date contains valid dates
+- customer is not null
+- product is not null
+- category is not null
+- quantity is greater than zero
+- unit_price is greater than or equal to zero
+
+Return a validation result containing:
+
+- is_valid
+- errors
+- warnings
+- number_of_rows
+
+Do not modify the input DataFrame.
+
+Use clear error messages.
+
+Also create pytest tests for valid and invalid datasets.
+```
+
+- Transformation
+
+Prompt:
+
+```text
+Implement src/transformation.py.
+
+Create:
+
+transform_sales_data(df: pandas.DataFrame) -> pandas.DataFrame
+
+Requirements:
+
+1. Do not mutate the original DataFrame.
+2. Convert order_date to datetime.
+3. Remove rows that fail validation.
+4. Normalize customer/product/category whitespace.
+5. Convert quantity to integer.
+6. Convert unit_price to float.
+7. Create:
+
+   sales_amount = quantity * unit_price
+
+8. Sort by order_date.
+9. Return the cleaned DataFrame.
+
+Keep validation logic separate from transformation logic.
+
+Add unit tests.
+```
+
+- Design SQLite Database
+
+Prompt:
+
+```text
+Design the SQLite schema for the cleaned sales dataset.
+
+Requirements:
+
+- SQLite
+- Create a sales table
+- order_id should be the primary key
+- Appropriate SQLite data types
+- Add useful constraints
+- Add indexes where useful
+
+Also create SQL views for:
+
+1. Daily sales
+2. Sales by category
+3. Sales by customer
+
+For each view provide the SQL and explain why it exists.
+
+Do not create Python code yet.
+```
+
+- Generate Database code
+
+Prompt:
+
+```text
+Implement src/database.py.
+
+Use Python's built-in sqlite3 module.
+
+Create functions:
+
+create_database(connection)
+insert_sales(connection, df)
+create_reporting_views(connection)
+
+Requirements:
+
+- Use parameterized SQL
+- Never construct INSERT statements using string concatenation
+- Use transactions
+- Handle database errors
+- Keep database code separate from pandas transformation code
+- Add type hints and docstrings
+
+Provide tests for database insertion and reporting views.
+```
+
+- Building Reporting Layer
+
+Prompt:
+
+```text
+Implement src/reporting.py.
+
+Create functions:
+
+get_daily_sales(connection)
+get_category_sales(connection)
+get_customer_sales(connection)
+
+Requirements:
+
+- Read from SQLite reporting views
+- Return pandas DataFrames
+- Do not duplicate SQL transformation logic in Python
+- Keep reporting queries separate from database creation
+- Add type hints
+- Add docstrings
+
+Also create:
+
+export_reports(connection, output_directory)
+
+which exports each report as CSV.
+```
+
+- Building Pipeline architecture
+
+Prompt:
+```text
+Implement src/pipeline.py.
+
+Create:
+
+run_pipeline(
+    input_file: str,
+    database_file: str,
+    output_directory: str
+)
+
+Pipeline steps must be:
+
+1. Load CSV
+2. Validate data
+3. Stop if validation fails
+4. Transform data
+5. Create SQLite database
+6. Insert cleaned data
+7. Create reporting views
+8. Generate reports
+9. Log the number of:
+   - input rows
+   - invalid rows
+   - loaded rows
+   - output report rows
+
+Do not put implementation details from the other modules into pipeline.py.
+
+pipeline.py should orchestrate the existing functions only.
+```
+
+- Add logging for each pipeline step
+
+Prompt:
+
+```text
+Add Python logging to the sales pipeline.
+
+Requirements:
+
+- Use Python's logging module
+- Log pipeline start and completion
+- Log input filename
+- Log number of input rows
+- Log validation results
+- Log number of transformed rows
+- Log database insertion count
+- Log report generation
+- Log exceptions with stack traces
+
+Do not use print() for operational messages.
+
+Use appropriate logging levels:
+DEBUG
+INFO
+WARNING
+ERROR
+CRITICAL
+```
+
+- Review the Code
+
+Prompt:
+```text
+Act as a senior Python/data engineering code reviewer.
+
+Review this project for:
+
+1. Correctness
+2. Security
+3. SQL injection risks
+4. Error handling
+5. Data quality
+6. Transaction handling
+7. Resource management
+8. Type hints
+9. Separation of concerns
+10. Testability
+11. Performance
+12. Maintainability
+
+Do not rewrite the code yet.
+
+For every problem provide:
+
+- File
+- Problem
+- Why it matters
+- Severity
+- Recommended fix
+
+Do not praise the code.
+Focus on finding problems.
+```
+
+- Test the pipeline
+
+Prompt:
+```text
+Act as a QA engineer.
+
+Create a test plan for this Python sales pipeline.
+
+Include tests for:
+
+- Missing CSV
+- Empty CSV
+- Missing columns
+- Duplicate order IDs
+- Invalid dates
+- Missing customers
+- Negative quantities
+- Zero quantities
+- Negative prices
+- Duplicate records
+- SQLite database failure
+- Partial pipeline failure
+- Correct sales calculations
+- Correct daily aggregation
+- Correct category aggregation
+- Correct customer aggregation
+
+For each test provide:
+
+Test ID
+Input
+Expected result
+Why the test matters
+```
+
+- Ask AI to attack pipeline
+Prompt:
+```text
+Act as an adversarial data engineer.
+
+Try to break this sales pipeline.
+
+Look for:
+
+- malformed CSV files
+- unexpected data types
+- extremely large values
+- duplicate records
+- null values
+- invalid dates
+- SQL injection through customer names
+- Unicode characters
+- commas and quotes inside CSV fields
+- empty files
+- database locking
+- partial writes
+- repeated pipeline execution
+
+For every attack:
+
+1. Explain the failure scenario
+2. Explain whether the current pipeline handles it
+3. Suggest a test
+4. Suggest a fix if necessary
+
+Do not modify the code yet.
+```
+
+- Ask AI to optimize
+
+Prompt:
+
+```text
+Review the completed pipeline for performance.
+
+Assume:
+
+- 100,000 rows
+- 1 million rows
+- 10 million rows
+
+Identify bottlenecks in:
+
+- pandas processing
+- SQLite inserts
+- SQL queries
+- indexes
+- CSV generation
+
+Do not optimize prematurely.
+
+For each recommendation explain:
+
+Current approach
+Problem
+Expected benefit
+Trade-offs
+
+Only recommend changes that are justified.
+```
+
+- Generate the documentation
+Prompt:
+```text
+Create a README.md for this project.
+
+Include:
+
+1. Project purpose
+2. Architecture
+3. Directory structure
+4. Requirements
+5. Installation
+6. Sample input
+7. How to run the pipeline
+8. Database schema
+9. Reporting views
+10. Generated reports
+11. Testing
+12. Error handling
+13. Logging
+14. Example output
+
+Write it for a Python developer who is new to the project.
+
+Do not document functionality that does not actually exist.
+```
+
+
