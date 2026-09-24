@@ -1,0 +1,27 @@
+
+Summary:summary_log.txt
+Lines: 4
+Words: 30
+Characters: 241
+Punctuation Marks: 43
+Digits: 11
+
+========================================
+
+Summary:summary_log.txt
+Lines: 132046
+Words: 547789
+Characters: 6554957
+Punctuation Marks: 976583
+Digits: 841162
+
+========================================
+
+Summary:summary_log.txt
+Lines: 8
+Words: 30
+Characters: 159
+Punctuation Marks: 8
+Digits: 0
+
+========================================
